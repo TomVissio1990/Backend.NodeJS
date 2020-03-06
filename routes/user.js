@@ -74,7 +74,7 @@ app.put('/:id', authMiddleware.verifyToken, (req, res) => {
 });
 
 //create user
-app.post('/', (req, res) => {
+app.post('/', authMiddleware.verifyToken, (req, res) => {
     var body = req.body;
     var user = new User({
         name: body.name,
@@ -100,7 +100,7 @@ app.post('/', (req, res) => {
 });
 
 //delete user
-app.delete('/:id', (req, res) => {
+app.delete('/:id', authMiddleware.verifyToken, (req, res) => {
     var id = req.params.id;
     User.findByIdAndRemove(id, (err, deletedUser) => {
         if (err) {
